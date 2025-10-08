@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+//“ут был гном гномыч
+
 using std::cin;
 using std::cout;
 using std::endl;
