@@ -1,7 +1,7 @@
 ﻿#include<iostream>
 using namespace std;
 
-//Тут был гном гномыч
+//Тут был Барсик
 
 using std::cin;
 using std::cout;
