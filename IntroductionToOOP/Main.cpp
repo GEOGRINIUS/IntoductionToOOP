@@ -1,7 +1,7 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
-//Тут был гном гномыч
+//РўСѓС‚ Р±С‹Р» РіРЅРѕРј РіРЅРѕРјС‹С‡
 
 using std::cin;
 using std::cout;
@@ -72,8 +72,8 @@ void main()
 	B.set_y(8);
 	cout << B.get_x() << "\t" << B.get_y() << endl;
 
-	cout << "Расстояние от точки 'A' до точки 'B': " << A.distance(B) << endl;
-	cout << "Расстояние от точки 'B' до точки 'A': " << B.distance(A) << endl;
-	cout << "Расстояние между точками 'A' и 'B': " << distance(A, B) << endl;
-	cout << "Расстояние между точками 'B' и 'A': " << distance(B, A) << endl;
+	cout << "Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С‚РѕС‡РєРё 'A' РґРѕ С‚РѕС‡РєРё 'B': " << A.distance(B) << endl;
+	cout << "Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С‚РѕС‡РєРё 'B' РґРѕ С‚РѕС‡РєРё 'A': " << B.distance(A) << endl;
+	cout << "Р Р°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё 'A' Рё 'B': " << distance(A, B) << endl;
+	cout << "Р Р°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё 'B' Рё 'A': " << distance(B, A) << endl;
 }
