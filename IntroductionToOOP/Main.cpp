@@ -171,7 +171,7 @@ void main()
 	cout << a << tab << b << tab << c << endl;
 	cout << endl;
 	Point A, B, C;
-	A, B, C = Point(2, 3);
+	A, B, C = Point(2, 3); //Поменял оператор присваивание на запятые...
 	A.print();
 	B.print();
 	C.print();
