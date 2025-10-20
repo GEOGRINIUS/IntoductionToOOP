@@ -60,11 +60,14 @@ public:
 		cout << "Destructor:\t\t" << this << endl;
 	}
 	//		   Operators:
-	void operator=(const Point& other)
+	const Point& operator=(const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
+		cout << "Left:\t" << this << endl;
+		cout << "Right:\t" << &other << endl;
 		cout << "CopyAssigment:\t\t" << this << endl;
+		return *this; 
 	}
 	//			 Methods:
 	double distance(const Point& other)const
@@ -92,11 +95,20 @@ double distance(const Point& A, const Point& B)
 	return distance;
 }
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+}
+
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
 //#define FOR_COUNTER_LIFETIME
 //#define CONSTRUCTORS_CHECK
-#define ASSIGNMENT_CHECK
+//#define ASSIGNMENT_CHECK
+#define OPERATORS_CHECK
 
 void main()
 {
@@ -169,13 +181,35 @@ void main()
 	int a, b, c;
 	a = b = c = 0;
 	cout << a << tab << b << tab << c << endl;
-	cout << endl;
+
 	Point A, B, C;
-	A, B, C = Point(2, 3); //Поменял оператор присваивание на запятые, и это сработала программа выполняется...
+	cout << delimiter << endl;
+	// A,B,C = Point(2, 3);
+	A = B = C = Point(2, 3);
+	//Point(2, 3); - это явный вызов конструктора. 
+	//Этот конструктор создает временный безымянный объект
+	//Который существует только в пределах одного выражения
+	//и удаляется из памяти по завершении выражения
+	//Point(2, 3).print();
+	cout << delimiter << endl;
 	A.print();
 	B.print();
 	C.print();
+	cout << sizeof(Point) << endl;
 #endif // ASSIGNMENT_CHECK
+
+#ifdef OPERATORS_CHECK
+
+	int a = 2;
+	int b = 3;
+	int c = a + b;
+
+	Point A(2, 3);
+	Point B(7, 8);
+	Point C = A + B;
+	C.print();
+
+#endif //OPERATORS_CHECK
 
 
 
