@@ -10,6 +10,8 @@ using std::endl;
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(const Fraction& left, const Fraction& right);
+Fraction operator+(const Fraction& left, const Fraction& right);
+Fraction operator-(const Fraction& left, const Fraction& right);
 
 class Fraction
 {
@@ -102,6 +104,14 @@ public:
 	Fraction operator/=(const Fraction& other)
 	{
 		return *this = *this / other;
+	}
+	Fraction operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+	Fraction operator-=(const Fraction& other)
+	{
+		return *this = *this - other;
 	}
 
 	//			 Increment/Decrement:
@@ -197,6 +207,14 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 {
 	return left * right.inverted();
 }
+Fraction operator+(const Fraction& left, const Fraction& right)
+{
+	return left * right.inverted();
+}
+Fraction operator-(const Fraction& left, const Fraction& right)
+{
+	return left * right.inverted();
+}
 
 //			Comparison operators:
 bool operator==(Fraction left, Fraction right)
@@ -223,6 +241,7 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 //#define ARITCHMETICAL_OPERATORS_CHECK
 //#define COMPOUND_ASSIGMENTS_CHECK
 //#define INCREMENTO_DECREMENTO
+//#define ACTUAL_WORK
 
 void main()
 {
@@ -261,7 +280,7 @@ void main()
 	A.to_proper();
 	A.print();
 	cout << delimiter << endl;
-	Fraction C = A / B;
+	Fraction C = A - B;
 	cout << delimiter << endl;
 	C.print();
 #endif //ARITCHMETICAL_OPERATORS_CHECK
@@ -272,7 +291,7 @@ void main()
 	A *= B;
 	A.print();
 
-	A /= B;
+	A -= B;
 	A.print();
 #endif // COMPOUND_ASSIGMENTS_CHECK
 
@@ -293,11 +312,12 @@ void main()
 	B.print();
 #endif //INCREMENTO_DECREMENTO
 
+#ifdef ACTUAL_WORK
 	//cout << (2 == 2) << endl;
 	//cout << (Fraction(1, 2) == Fraction(5, 11)) << endl;
 
 	Fraction A(2, 3, 4);
 
 	cout << A << endl;
-
+#endif //ACTUAL_WORK
 }
