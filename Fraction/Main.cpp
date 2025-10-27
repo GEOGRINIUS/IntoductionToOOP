@@ -129,6 +129,17 @@ public:
 		this->integer++;
 		return old;
 	}
+	Fraction operator--()
+	{
+		this->integer--;
+		return *this;
+	}
+	Fraction& operator--(int)
+	{
+		Fraction old = *this;
+		this->integer--;
+		return old;
+	}
 
 	//				Methods:
 	Fraction& to_improper()
@@ -223,6 +234,36 @@ bool operator==(Fraction left, Fraction right)
 	right.to_improper();
 	return left.get_numerator() * right.get_denominator() == right.get_numerator() * left.get_denominator();
 }
+bool operator!=(const Fraction& left, const Fraction& right)
+{
+	return !(left == right);
+}
+bool operator>(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_proper();
+	return
+		left.get_numerator() * right.get_denominator() >
+		right.get_numerator() * left.get_denominator();
+}
+bool operator<(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_proper();
+	return
+		left.get_numerator() * right.get_denominator() <
+		right.get_numerator() * left.get_denominator();
+}
+bool operator>=(const Fraction& left, const Fraction& right)
+{
+	return !(left > right);
+	//return left > right || left == right;
+}
+bool operator<=(const Fraction& left, const Fraction& right)
+{
+	return !(left < right);
+	/*return left < right || left == right;*/
+}
 
 std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 {
@@ -241,7 +282,6 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 //#define ARITCHMETICAL_OPERATORS_CHECK
 //#define COMPOUND_ASSIGMENTS_CHECK
 //#define INCREMENTO_DECREMENTO
-//#define ACTUAL_WORK
 
 void main()
 {
@@ -312,12 +352,14 @@ void main()
 	B.print();
 #endif //INCREMENTO_DECREMENTO
 
-#ifdef ACTUAL_WORK
 	//cout << (2 == 2) << endl;
-	//cout << (Fraction(1, 2) == Fraction(5, 11)) << endl;
+	cout << (Fraction(1, 3) <= Fraction(5, 11)) << endl;
 
 	Fraction A(2, 3, 4);
-
 	cout << A << endl;
-#endif //ACTUAL_WORK
+
+	//Fraction A;
+	//cout << "Введите простую дробь: "; cin >> A;
+	//cout << A << endl;
+
 }
