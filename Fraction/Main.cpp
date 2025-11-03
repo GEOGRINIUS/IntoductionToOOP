@@ -54,12 +54,21 @@ public:
 		denominator = 1;
 		cout << "DefaultConstructor:" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
 		cout << "SingleArgumentConstructor:" << this << endl;
+	}
+	explicit Fraction(double decimal)
+	{
+		decimal += 1e-10;	//1:10^10;
+		integer = decimal;	//Conversion from 'double' to 'int' with data loss
+		decimal -= integer;
+		denominator = 1e+9;	//1*10^9;
+		numerator = decimal*denominator;
+		reduce();
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -84,6 +93,8 @@ public:
 		//потому что все значение прошли фильтрацию данных при создании объекта 'other'.
 		cout << "CopyConstructor:" << this << endl;
 	}
+
+	//			Destructor
 	~Fraction()
 	{
 		cout << "Destructor:\t" << this << endl;
@@ -142,6 +153,16 @@ public:
 		return old;
 	}
 
+	//				Type-cast operators:
+	explicit operator int()const
+	{
+		return integer + numerator / denominator;
+	}
+	explicit operator double()const
+	{
+		return integer + double(numerator) / double(denominator);
+	}
+
 	//				Methods:
 	Fraction& to_improper()
 	{
@@ -167,6 +188,7 @@ public:
 		int more, less, rest = 0;
 		if (numerator > denominator)more = numerator, less = denominator;
 		else less = numerator, more = denominator;
+		if (less == 0)return *this;
 		do
 		{
 			rest = more % less;
@@ -319,6 +341,10 @@ std::istream& operator>>(std::istream& is, Fraction& obj)
 //#define COMPOUND_ASSIGMENTS_CHECK
 //#define INCREMENTO_DECREMENTO
 //#define STREAMS_CHECK_1
+//#define TYPE_CONVERSIONS_BASICS
+//#define CONVERSIONS_FROM_OTHER_TO_CLASS
+//#define HOME_WORK
+//#define
 
 void main()
 {
@@ -396,12 +422,49 @@ void main()
 	/*Fraction A(2, 3, 4);
 	cout << "Введите простую дробь: "; cin >> A;
 	cout << A << endl;*/
-#endif // STREAMS_CHECK_1
-
 	Fraction A, B, C;
 	cout << "Введите три простых дроби: ";
 	cin >> A >> B >> C;
 	cout << A << tab << B << tab << C << endl;
+#endif // STREAMS_CHECK_1
 
+#ifdef TYPE_CONVERSIONS_BASICS
+	int a = 2;		//No conversions
+	double b = a;	//Conversion from lest to more
+	int c = b;		//Conversion from more to less without data loss
+	int d = 3.14;	//Conversion from more to less with data loss
+
+	int e = 2 + 3.14;
+#endif //TYPE_CONVERSIONS_BASICS
+
+#ifdef CONVERSIONS_FROM_OTHER_TO_CLASS
+	Fraction A = (Fraction)5;		//Conversion from 'int' to 'Fraction'
+	cout << A << endl;
+
+	Fraction B;
+	B = Fraction(8);	//Conversion from 'int' to 'Fraction'
+	cout << B << endl;
+#endif //CONVERSIONS_FROM_OTHER_TO_CLASS
+
+#ifdef HOME_WORK
+
+	//Fraction A = (Fraction)3.333;
+	Fraction A (3.333);
+	cout << A << endl;
+
+	Fraction B { 8 };
+	cout << B << endl;
+
+#endif //HOME_WORK
+
+	Fraction A(2, 33, 4);
+	cout << A << endl;
+	int a = (int)A;
+	cout << a << endl;
+
+	Fraction B(3.11);
+	cout << B << endl;
+	double b = (double)B;
+	cout << b << endl;
 
 }
