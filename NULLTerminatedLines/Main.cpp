@@ -18,11 +18,14 @@ int bin_to_dec(const char str[]);
 bool is_hex_number(const char str[]);
 int hex_to_dec(const char str[]);
 
+bool isMACaddress(const char str[]);
+
 #define tab "\t"
 #define delimiter "\n----------------------------------------------------------------------\n"
 
 //#define LINES_DASICIS_1
 //#define LINES_DASICIS_2
+//#define NUMERICS
 
 void main()
 {
@@ -61,6 +64,9 @@ void main()
 	cout << "Строка " << (isPalindrome(str) ? "" : "не ") << "яввляется палиндромом" << endl;
 #endif //LINES_DASICIS_2
 
+#ifdef NUMERICS
+
+
 	const int SIZE = 48;
 	//char str[SIZE] = "1100 1000";
 	char str[SIZE] = "0xC8";
@@ -69,6 +75,9 @@ void main()
 
 	cout << "Строка " << (is_hex_number(str) ? "" : "не ") << "Является шестнадцетиричным числом" << endl;
 	cout << str << "(bin) = " << hex_to_dec(str) << "(dec)" << endl;
+#endif // NUMERICS
+
+	cout << isMACaddress("A0-02-A5-69-3D-C2") << endl;
 
 }
 
@@ -159,6 +168,7 @@ bool is_bin_number(const char str[])
 }
 int bin_to_dec(const char str[])
 {
+	if (is_bin_number(str))return INT_MIN;
 	int decimal = 0;
 	int weight = 1;
 	int length = StringLength(str);
@@ -203,4 +213,20 @@ int hex_to_dec(const char str[])
 		weight *= 16;
 	}
 	return decimal;
+}
+
+bool isMACaddress(const char str[])
+{
+	if (strlen(str) != 17)return false;
+	for (int i = 0; str[i]; i++)
+	{
+		if ((i + 1) % 3 == 0 && (str[i] == '-' || str[i] == ':'))continue;
+		else if ((i + 1) % 3 == 0)return false;
+		if (
+			!(str[i] >= '0' && str[i] <= '9') &&
+			!(str[i] >= 'A' && str[i] <= 'F') &&
+			!(str[i] >= 'a' && str[i] <= 'f')
+		   )return false;
+	}
+	return true;
 }
