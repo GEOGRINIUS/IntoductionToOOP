@@ -23,6 +23,7 @@ int hex_to_dec(const char str[]);
 
 bool isMACaddress(const char str[]);
 bool isIPaddress(const char str[]);
+bool isIPaddressTok(const char str[]);
 
 #define tab "\t"
 #define delimiter "\n----------------------------------------------------------------------\n"
@@ -85,6 +86,7 @@ void main()
 	cout << isMACaddress("02-2d-71-7D-03-6F") << endl;
 	cout << isIPaddress("192.168.100.1") << endl;
 	cout << isIPaddress("8.8.8.8") << endl;
+	cout << isIPaddressTok("192.168.100.1") << endl;
 
 }
 
@@ -283,4 +285,22 @@ bool isIPaddress(const char str[])
 		}
 	}
 	return points_count == 3 ? true : false;
+}
+
+bool isIPaddressTok(const char str[])
+{
+	NULL;
+	char size = strlen(str);
+	if (size < 7 || size > 15)return false;
+	char* buffer = new char[size + 1] {};
+	strcpy(buffer, str);
+	int n = 0;
+	unsigned int bytes[4] = {};
+	for (char* pch = strtok(buffer, "."); pch; pch = strtok(NULL, "."))
+		bytes[n++] = std::atoi(pch);
+	delete[] buffer;
+	if (n < 4)return false;
+	for (int i = 0; i < n; i++)
+		if (bytes[i] > 255)return false;
+	return true;
 }
