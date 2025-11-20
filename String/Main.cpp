@@ -45,6 +45,19 @@ public:
 		cout << "Desctructor:\t" << this << endl;
 	}
 
+	//			  Operators:
+	String& operator=(const String& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+		//Deep copy:
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		cout << "CopyAssigment:\t" << this << endl;
+		return *this;
+	}
+
 	//				Methods:
 	void print()const
 	{
@@ -58,8 +71,8 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
-//#define BASE_CHECK
-#define OPERATORS_CHECK
+#define BASE_CHECK
+//#define OPERATORS_CHECK
 
 void main()
 {
@@ -77,7 +90,7 @@ void main()
 	cout << str2 << endl;
 
 	String str3;
-	str3 = str2;
+	str3 = str2;		//CopyAssigment
 	cout << str3 << endl;
 #endif //BASE_CHECK
 
