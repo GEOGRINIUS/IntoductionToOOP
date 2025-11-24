@@ -14,7 +14,15 @@ class String
 	int size;	//Размер строки в Байтах
 	char* str;	//Указатель на строку в динамической памяти
 public:
+	int get_size()const
+	{
+		return size;
+	}
 	const char* get_str()const
+	{
+		return str;
+	}
+	char* get_str()
 	{
 		return str;
 	}
@@ -66,13 +74,24 @@ public:
 	}
 };
 
+String operator+(const String& left, const String& right)
+{
+	//Сложение строк - конкатенация строк:
+	String result(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++)
+		result.get_str()[i] = left.get_str()[i];
+	for (int i = 0; i < right.get_size(); i++)
+		result.get_str()[i + left.get_size() - 1] = right.get_str()[i];
+	return result;
+}
+
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 }
 
-#define BASE_CHECK
-//#define OPERATORS_CHECK
+//#define BASE_CHECK
+#define OPERATORS_CHECK
 
 void main()
 {
