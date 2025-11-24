@@ -47,6 +47,18 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
+	String(String&& other)
+	{
+		//String&& - r-value reference
+		//Shallow copy - Поверхностное копирование:
+		this->size = other.size;
+		this->str = other.str;
+		//Обязательно нужно обнулить копируемый объект:
+		other.size = 0;
+		other.str = nullptr;
+		//Это предотвращает удаление динамической памяти деструктором.
+		cout << "MoveConstructor:" << this << endl;
+	}
 	~String()
 	{
 		delete[] str;
@@ -128,7 +140,9 @@ void main()
 #ifdef OPERATORS_CHECK
 	String str1 = "hello";
 	String str2 = "world";
+	cout << delimiter << endl;
 	String str3 = str1 + str2;
+	cout << delimiter << endl;
 	cout << str3 << endl;
 #endif //OPERATORS_CHECK
 }
