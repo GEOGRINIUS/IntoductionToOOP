@@ -130,7 +130,8 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 }
 
 //#define BASE_CHECK
-#define OPERATORS_CHECK
+//#define OPERATORS_CHECK
+#define CALLING_CONSTRUCTORS
 
 void main()
 {
@@ -162,4 +163,43 @@ void main()
 	cout << delimiter << endl;
 	cout << str3 << endl;
 #endif //OPERATORS_CHECK
+
+#ifdef CALLING_CONSTRUCTORS
+	String str1;		   //Default constructor
+	str1.print();
+
+	String str2(5);		   //Single-argument constructor ints (explicit)
+	str2.print();
+
+	String str3 = "hello"; //Single-argument consructor 'char'
+	str3.print();
+
+	String str4();		   //NOT default constructor
+	//str4.print();		   
+	//Для того чтобы явно вызвать конструктор по умолчанию, можно использовать {} следующим обрпзом:
+	String str5{}; // Явный вызов конструктора по умолчанию.
+	str5.print();
+	//НО, с фигурными скобками нужно быть ОЧЕНЬ ОСТОРОЖНЫМ
+	//Фигурные скобки как правило используются в контейнирах.
+
+	String str6{ 7 };	   //Так же как 'str2' вызывает коструктор с одним параметрам типа 'int'
+	str6.print();
+
+	String str7{ "World" };//Так же как и 'str3' вызывает конструктор с одним параметром типа 'const char*'
+	String str8{ "World" };//Так же как и 'str3' вызывает конструктор с одним параметром типа 'const char*'
+
+	String str9 = str3;	   //CopyConstructor
+	String str10(str9);	   //CopyConstructor
+	String str11{ str9 };  //CopyConstructor
+
+	String str12 = str3 + str7; //MoveConstructor
+	str12.print();
+
+	String str13(str3 + str7);  //MoveConstructor
+	str13.print();
+
+	String str14{ str3 + str7 };//MoveConstructor
+	str14.print();
+#endif //CALLING_CONSTRUCTORS
+
 }
