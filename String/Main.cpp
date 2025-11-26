@@ -55,7 +55,8 @@ public:
 		this->str = other.str;
 		//Обязательно нужно обнулить копируемый объект:
 		other.size = 0;
-		other.str = nullptr;
+		other.str = nullptr;	//nullptr - это указатель на '0' (Указатель в никуда).
+								//nullptr - это физический '0' (Нулевая ячейка памяти).
 		//Это предотвращает удаление динамической памяти деструктором.
 		cout << "MoveConstructor:" << this << endl;
 	}
@@ -75,6 +76,20 @@ public:
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssigment:\t" << this << endl;
+		return *this;
+	}
+	String& operator=(String&& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+
+		this->size = other.size;
+		this->str = other.str;
+
+		other.size = 0;
+		other.str = nullptr;
+
+		cout << "MoveAssignment:\t" << endl;
 		return *this;
 	}
 
@@ -141,7 +156,9 @@ void main()
 	String str1 = "hello";
 	String str2 = "world";
 	cout << delimiter << endl;
-	String str3 = str1 + str2;
+	//String str3 = str1 + str2;	//MoveConstructor
+	String str3;
+	str3 = str1 + str2;
 	cout << delimiter << endl;
 	cout << str3 << endl;
 #endif //OPERATORS_CHECK
